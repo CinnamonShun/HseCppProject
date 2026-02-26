@@ -186,15 +186,15 @@ struct BMPHeader {
 #pragma pack(pop)
 
 int main(int argc, char *argv[]) {
-  std::ifstream input("input.bmp", std::ios::binary);
-  BMPHeader bmp_header;
-  input.read(reinterpret_cast<char *>(&bmp_header), sizeof(BMPHeader));
-  input.seekg(offset, std::ios::beg);
-  input.ignore();
-  //...
-  std::ofstream("output.bmp", std::ios::binary);
-  input.write();
-  input.seekp();
+	std::ifstream input("input.bmp", std::ios::binary);
+	BMPHeader bmp_header;
+	input.read(reinterpret_cast<char *>(&bmp_header), sizeof(BMPHeader));
+	input.seekg(offset, std::ios::beg);
+	input.ignore();
+	//...
+	std::ofstream("output.bmp", std::ios::binary);
+	input.write();
+	input.seekp();
 }
 ```
 
