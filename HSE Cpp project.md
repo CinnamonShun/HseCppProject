@@ -314,5 +314,47 @@ int main() {
 ```
 
 ```cpp
-ТУТ ОБНОВА БУДЕТ ЧУТКА ПОЗЖЕ (ПРО SHAPE)
+class Shape {
+public:
+  Shape() = default;
+  virtual void print_area() const {
+    std::cout << "Called Shape print_area" << std::endl;
+  }
+};
+
+class Rectangle : public Shape {
+public:
+  Rectangle(int a, int b) : a_(a), b_(b) {};
+  void print_area() const override {
+    std::cout << "Called Rectangle print_area" << std::endl
+    std::cout << "Area is " << a_ * b_ << std::endl;
+  }
+private:
+  int a_, b_;
+};
+
+class Square : public Shape {
+public:
+  Square(int a) : a_(a) {};
+  void print_area() const override {
+    std::cout << "Called Square print_area" << std::endl;
+    std::cout << "Area is " << a_ * a_ << std::endl;
+  }
+private:
+  int a_;
+};
+
+
+int main() {
+  Shape shape;
+  shape.print_area();
+  Shape *rectangle = new Rectangle(2, 4);
+  rectangle->print_area();
+  Square square = Square(5);
+  Shape &s = square;
+  square.print_area();
+  Shape square2 = Square(5);
+  // object slicing
+  square2.print_area();
+}
 ```
