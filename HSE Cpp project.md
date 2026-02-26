@@ -199,3 +199,57 @@ int main(int argc, char *argv[]) {
 ```
 
 
+### Наследование (для пункта 3 и 4)
+
+```cpp
+class Base {
+public:
+	Base(int value) : base_value_(value) {}
+	
+private:
+	int base_value_;
+};
+
+class Derived : public Base {
+public:
+	Derived(int derived_value, int base_value)
+		: derived_value_(derived_value) {}
+private:
+//
+	int derived_value;
+}
+
+// Derived [base fields][derived fields]
+```
+
+Поля в наследниках сохраняются, НО **сначала идут унаследованные, а потом личные наследника**. Т.е. конструкторы идут от самого общего, к самому частному
+
+#### ТИПЫ НАСЛЕДОВАНИЯ:
+1) Single inheritance (единичное наследование)  
+   Base -> Derived  
+2) Miltilevel inheritance (множественное наследование)  
+   Base -> Derived -> DDer -> ...  
+3) Multiple (т.е. наследование возможно от нескольких классов)  
+   Base1 + Base2 -> Derived  
+   ```cpp
+   class Derived : public Base1, public Base2 {
+   public:
+	   Derived(int derived_value, int base_value)
+		   : Base1(base_value), derived_value_(derived_value) {}
+	}
+   ```
+4) Hierinchical
+   Base -> Derived1 and Derived2
+5) Hybrid
+   Просто смешанное всё
+
+#### Связь с типом поля (public, protected, private)
+
+**Сверху типы полей Base**
+**Слева тип наследования**
+
+|           | **public** | **protected** |
+| --------- | ---------- | ------------- |
+| **public**    | public     | protected     |
+| **protected** | protacted  | protacted     |
+| **private**   | private    | private       |
