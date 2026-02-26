@@ -253,3 +253,66 @@ private:
 | **public**    | public     | protected     |
 | **protected** | protacted  | protacted     |
 | **private**   | private    | private       |
+
+#### Virtual
+```cpp
+class Animal {
+public:
+	Animal(int value) {
+		std::cout << "Animal constructor called with value" << value << std::endl;
+	}
+};
+
+class Dog: virtual public Animal {  
+// !!ВАЖНО!! virtual нужен, т.к. мы в CatDog наследуем Animal **дважды**
+// virtual добавляется в родителя, НЕ в прародителя
+// virtual надо добавлять ВО ВСЕХ РОДИТЕЛЕЙ, которые унаследуются от одного и того же класса
+public:
+	Dog(int value): Animal(value) {
+		std::cout << "Dog constructor called with value" << value << std::endl;
+	}
+};
+
+class Cat: virtual public Animal {
+// !!ВАЖНО!! virtual нужен, т.к. мы в CatDog наследуем Animal **дважды**
+// virtual добавляется в родителя, НЕ в прародителя
+// virtual надо добавлять ВО ВСЕХ РОДИТЕЛЕЙ, которые унаследуются от одного и того же класса
+public:
+	Cat(int value): Animal(value) {
+		std::cout << "Cat constructor called with value" << value << std::endl;
+	}
+};
+
+class CatDog : public Cat, public Dog {
+public:
+	CatDog(int value) : Animal(value), Cat(value), Dog(value) {
+// вызываем конструктор прародителя (т.е. Animal(value)), т.к. из-за virtual конструкторы Cat и Dog игнорируются CatDog
+		std::cout << "CatDog constructor called with value" << value << std::endl;
+	}	
+}
+```
+
+#### Полиморфизм
+— это способность объектов, имеющих одинаковый интерфейс или базовый класс, вести себя по-разному в зависимости от их типа
+```cpp
+template <typename T>
+T add(T a, T b) {
+	return a + b;
+}
+
+int add(int a, int b) {
+	return a + b;
+}
+
+std::string add(std::string a, std::string b) {
+	return a + b;
+}
+
+int main() {
+	add(a, b);
+}
+```
+
+```cpp
+ТУТ ОБНОВА БУДЕТ ЧУТКА ПОЗЖЕ (ПРО SHAPE)
+```
