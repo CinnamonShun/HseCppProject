@@ -232,11 +232,11 @@ private:
 3) Multiple (т.е. наследование возможно от нескольких классов)  
    Base1 + Base2 -> Derived  
    ```cpp
-   class Derived : public Base1, public Base2 {
-   public:
+    class Derived : public Base1, public Base2 {
+    public:
 	   Derived(int derived_value, int base_value)
 		   : Base1(base_value), derived_value_(derived_value) {}
-	}
+    }
    ```
 4) Hierinchical
    Base -> Derived1 and Derived2
