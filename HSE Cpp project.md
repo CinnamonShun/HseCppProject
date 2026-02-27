@@ -330,6 +330,7 @@ public:
     std::cout << "Area is " << a_ * b_ << std::endl;
   }
 private:
+  // *vptr - указатель на таблицу виртуальных функций
   int a_, b_;
 };
 
@@ -341,6 +342,7 @@ public:
     std::cout << "Area is " << a_ * a_ << std::endl;
   }
 private:
+  // *vptr - указатель на таблицу виртуальных функций
   int a_;
 };
 
@@ -358,3 +360,39 @@ int main() {
   square2.print_area();
 }
 ```
+
+### 4. Создание из распарсенных аргументов последовательность фильтров
+
+Абстрактный **`Base Filter`**
+`virtual Applyu(Imager image) = 0`
+
+Тогда наследовать этот класс будут:
+`NegativeFilter` , `CropFilter` , ...  (т.е. разные фильтры)
+
+`vector <BaseFilter*>` или `vector <unique_ptr<BaseFilters>>`
+тогда для каждого элемента вызываем Apply: `filters[i] -> Apply(image);`
+
+**ТАКЖЕ** можно разделить классы на подклассы: т.е. на классы цветов `ColorFilter`, на классы геометрических обработок (в нём поворот на лево и т.д.)
+
+
+`vector<FilterDescriptor> descriptions;`
+как перевести в
+`vector<unique_ptr<BaseFilter>> filters`
+
+Паттерн `class CreateFilterFactory`
+Фабрика `FuncPtr = unique_ptr<BaseFilter> (*) (vector<stirng>);`
+		`FuncPtr = std::function<unique_ptr<BaseFilter>(vector<string>);`
+**В начале функции** `map<string //название фильтра//, FuncPtr //указатель на функцию//> mapping;` 
+
+```cpp
+class CreateFilterFactory {
+	FuncPtr = unique_ptr<BaseFilter> (*) (vector<stirng>);
+	FuncPtr = std::function<unique_ptr<BaseFilter>(vector<string>);
+	//название фильтра и указатель на функцию
+	map<string,          FuncPtr> mapping; 
+}
+```
+
+### 5. Записать изображение в BMP и сохранить (записать в output)
+
+**тут будет продолжение позже**
